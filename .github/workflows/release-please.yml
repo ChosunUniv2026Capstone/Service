@@ -1,0 +1,30 @@
+name: Release Please
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created == 'true' }}
+        with:
+          ref: ${{ steps.release.outputs.tag_name }}
+      - name: Verify tagged release manifest
+        if: ${{ steps.release.outputs.release_created == 'true' }}
+        run: |
+          test -f "manifests/releases/${{ steps.release.outputs.tag_name }}.yml"
+          test "$(grep '^serviceVersion:' "manifests/releases/${{ steps.release.outputs.tag_name }}.yml" | awk '{print $2}')" = "${{ steps.release.outputs.tag_name }}"
+          ./scripts/render-release-env.sh "manifests/releases/${{ steps.release.outputs.tag_name }}.yml"

@@ -1,0 +1,63 @@
+name: Deploy demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      service_version:
+        description: Service release version, e.g. v0.1.0
+        required: true
+        type: string
+      reset_demo_data:
+        description: Allow explicit demo DB volume reset when manifest requires it
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+env:
+  DEMO_PUBLIC_URL: ${{ vars.DEMO_PUBLIC_URL || 'https://smart-class.org' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: demo-production
+    steps:
+      - name: Validate input version
+        run: |
+          [[ "${{ inputs.service_version }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.service_version }}
+      - name: Verify manifest and render env
+        run: |
+          test -f "manifests/releases/${{ inputs.service_version }}.yml"
+          ./scripts/render-release-env.sh "manifests/releases/${{ inputs.service_version }}.yml" > .env.release
+          cat .env.release
+      - name: Install SSH key
+        run: |
+          mkdir -p ~/.ssh
+          install -m 600 /dev/null ~/.ssh/demo_key
+          printf '%s' '${{ secrets.DEMO_SSH_KEY }}' > ~/.ssh/demo_key
+          ssh-keyscan -H '${{ secrets.DEMO_SSH_HOST }}' >> ~/.ssh/known_hosts
+      - name: Upload release checkout
+        run: |
+          rsync -az --delete -e "ssh -i ~/.ssh/demo_key" ./ "${{ secrets.DEMO_SSH_USER }}@${{ secrets.DEMO_SSH_HOST }}:~/smart-class-service/"
+      - name: Deploy on demo host
+        env:
+          GHCR_READ_USER: ${{ secrets.GHCR_READ_USER }}
+          GHCR_READ_TOKEN: ${{ secrets.GHCR_READ_TOKEN }}
+          RESET_DEMO_DATA: ${{ inputs.reset_demo_data }}
+        run: |
+          ssh -i ~/.ssh/demo_key "${{ secrets.DEMO_SSH_USER }}@${{ secrets.DEMO_SSH_HOST }}" \
+            "cd ~/smart-class-service && GHCR_READ_USER='$GHCR_READ_USER' GHCR_READ_TOKEN='$GHCR_READ_TOKEN' DEMO_PUBLIC_URL='$DEMO_PUBLIC_URL' ./scripts/deploy-demo.sh --service-version '${{ inputs.service_version }}' --reset-demo-data '${{ inputs.reset_demo_data }}'"
+      - name: Health summary
+        run: |
+          echo "## Demo deploy" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Service version: ${{ inputs.service_version }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Reset demo data: ${{ inputs.reset_demo_data }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Public URL: $DEMO_PUBLIC_URL" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          curl -fsS "$DEMO_PUBLIC_URL/health" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"

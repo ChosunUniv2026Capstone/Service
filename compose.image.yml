@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: ${DB_IMAGE:-ghcr.io/chosununiv2026capstone/db:edge}
+
+  presence-service:
+    image: ${PRESENCE_SERVICE_IMAGE:-ghcr.io/chosununiv2026capstone/presence-service:edge}
+
+  backend:
+    image: ${BACKEND_IMAGE:-ghcr.io/chosununiv2026capstone/backend:edge}
+
+  front:
+    image: ${FRONT_IMAGE:-ghcr.io/chosununiv2026capstone/front:edge}

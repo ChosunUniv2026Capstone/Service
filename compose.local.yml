@@ -1,0 +1,20 @@
+services:
+  postgres:
+    build:
+      context: ../DB
+    image: smart-class/db:local
+
+  presence-service:
+    build:
+      context: ../PresenceService
+    image: smart-class/presence-service:local
+
+  backend:
+    build:
+      context: ../Backend
+    image: smart-class/backend:local
+
+  front:
+    build:
+      context: ../Front
+    image: smart-class/front:local
