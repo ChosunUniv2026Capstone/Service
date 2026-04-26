@@ -26,5 +26,5 @@ jobs:
         if: ${{ steps.release.outputs.release_created == 'true' }}
         run: |
           test -f "manifests/releases/${{ steps.release.outputs.tag_name }}.yml"
-          test "$(grep '^serviceVersion:' "manifests/releases/${{ steps.release.outputs.tag_name }}.yml" | awk '{print $2}')" = "${{ steps.release.outputs.tag_name }}"
+          ./scripts/validate-release-manifest.sh --service-version "${{ steps.release.outputs.tag_name }}" "manifests/releases/${{ steps.release.outputs.tag_name }}.yml"
           ./scripts/render-release-env.sh "manifests/releases/${{ steps.release.outputs.tag_name }}.yml"

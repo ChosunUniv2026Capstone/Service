@@ -5,26 +5,26 @@ components:
     image: ghcr.io/chosununiv2026capstone/backend
     version: v0.1.0
     tag: v0.1.0
-    digest: sha256:replace-backend-digest
+    digest: sha256:1111111111111111111111111111111111111111111111111111111111111111
     release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.1.0
   front:
     image: ghcr.io/chosununiv2026capstone/front
     version: v0.1.0
     tag: v0.1.0
-    digest: sha256:replace-front-digest
+    digest: sha256:2222222222222222222222222222222222222222222222222222222222222222
     release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/v0.1.0
   presenceService:
     image: ghcr.io/chosununiv2026capstone/presence-service
     version: v0.1.0
     tag: v0.1.0
-    digest: sha256:replace-presence-digest
+    digest: sha256:3333333333333333333333333333333333333333333333333333333333333333
     release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.1.0
   db:
     image: ghcr.io/chosununiv2026capstone/db
     version: v0.1.0
     tag: v0.1.0
-    digest: sha256:replace-db-digest
+    digest: sha256:4444444444444444444444444444444444444444444444444444444444444444
     resetRequired: true
     release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.1.0
 notes:
-  summary: Initial manifest example; replace all digests before release.
+  summary: Initial manifest example; replace component versions, release links, and digests before release.
