@@ -4,6 +4,42 @@
 
 ## Modes
 
+### Quick setup: public image mode, no workspace clone
+
+Use this when you only have Linux + Docker installed and want to try the Smart Class stack without cloning `Backend`, `Front`, `PresenceService`, or `DB`. The commands below download only the runtime env and Compose files from this repository, then run the public GHCR images.
+
+```bash
+mkdir -p smart-class-service/nginx
+cd smart-class-service
+
+# Download the minimal runtime files.
+curl -fsSLo .env https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/.env.example
+curl -fsSLo compose.yml https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/compose.yml
+curl -fsSLo compose.image.yml https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/compose.image.yml
+curl -fsSLo nginx/local.conf https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/nginx/local.conf
+
+# Let plain `docker compose up` use image mode. Linux Compose uses `:` as the file separator.
+printf '\nCOMPOSE_FILE=compose.yml:compose.image.yml\n' >> .env
+
+# Pull and start public images from GitHub Packages / GHCR.
+docker compose up -d --pull always
+curl -fsS http://localhost:3100/health
+```
+
+Expected health response:
+
+```json
+{"status":"ok"}
+```
+
+Open `http://localhost:3100` after the containers are healthy. To stop and remove the demo data volumes:
+
+```bash
+docker compose down -v
+```
+
+The quick setup intentionally uses the public `edge` image tags from `compose.image.yml` defaults. For a reproducible demo or production-like deployment, set the four `*_IMAGE` values in `.env` to release tags or digest-pinned image refs before running `docker compose up`.
+
 ### Local source mode
 
 Build sibling workspace repos and run through local nginx:
