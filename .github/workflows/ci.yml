@@ -39,5 +39,7 @@ jobs:
             ./scripts/validate-release-manifest.sh --service-version "v$(cat version.txt)" "manifests/releases/v$(cat version.txt).yml"
             ./scripts/render-release-env.sh "manifests/releases/v$(cat version.txt).yml"
           fi
+      - name: Install Python test runner
+        run: python3 -m pip install --user pytest
       - name: Run release manifest contract tests
         run: python3 -m pytest tests/test_release_manifest_contract.py
