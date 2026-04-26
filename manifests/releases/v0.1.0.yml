@@ -1,0 +1,30 @@
+serviceVersion: v0.1.0
+releasedAt: 2026-04-26T00:00:00Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.1.0
+    tag: sha-bb73a03
+    digest: sha256:f03cdaf2dec73eb3571432b51e1af5e8728813c7c95784eea75591397b3b253a
+    release: https://github.com/ChosunUniv2026Capstone/Backend/actions/runs/24943755805
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.1.0
+    tag: sha-3d28ed1
+    digest: sha256:11c1e7891126cfad87e3534daea5b272489d98a6956c93a8a969ae93507aa89a
+    release: https://github.com/ChosunUniv2026Capstone/Front/actions/runs/24943758696
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.1.0
+    tag: sha-aad4327
+    digest: sha256:ede8fdd5642f5b76160b28442bf47e63d5512bd7301573a2b09657da3871692d
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/actions/runs/24943756750
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.1.0
+    tag: sha-c4773d4
+    digest: sha256:b3d5179295bd99e10f6510781c2c7f16f0daf7e886afa9e73bb7e136092f69af
+    resetRequired: true
+    release: https://github.com/ChosunUniv2026Capstone/DB/actions/runs/24943757712
+notes:
+  summary: Initial demo release manifest generated from successful main-branch GHCR publish runs.
