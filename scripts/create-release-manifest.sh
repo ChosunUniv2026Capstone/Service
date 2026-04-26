@@ -30,8 +30,9 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 case "$service_version" in v[0-9]*.[0-9]*.[0-9]*) ;; *) echo "--service-version must be vX.Y.Z" >&2; exit 2 ;; esac
-for pair in backend_ref front_ref presence_ref db_ref; do
-  if [ -z "${!pair}" ]; then echo "missing --${pair%_ref}-ref" >&2; exit 2; fi
+case "$db_reset_required" in true|false) ;; *) echo "--db-reset-required must be true or false" >&2; exit 2 ;; esac
+for pair in backend_ref front_ref presence_ref db_ref backend_version front_version presence_version db_version backend_release front_release presence_release db_release; do
+  if [ -z "${!pair}" ]; then echo "missing --${pair//_/-}" >&2; exit 2; fi
 done
 split_ref() {
   local ref="$1" image tag digest
@@ -46,6 +47,14 @@ readarray -t backend < <(split_ref "$backend_ref")
 readarray -t front < <(split_ref "$front_ref")
 readarray -t presence < <(split_ref "$presence_ref")
 readarray -t db < <(split_ref "$db_ref")
+for component in backend front presence db; do
+  ref_array="${component}[@]"
+  values=("${!ref_array}")
+  if [ -z "${values[1]}" ] || [ -z "${values[2]}" ]; then
+    echo "--${component}-ref must include tag and sha256 digest" >&2
+    exit 2
+  fi
+done
 out="$SERVICE_ROOT/manifests/releases/${service_version}.yml"
 mkdir -p "$(dirname "$out")"
 cat > "$out" <<YAML
@@ -54,30 +63,31 @@ releasedAt: $released_at
 components:
   backend:
     image: ${backend[0]}
-    version: ${backend_version:-${backend[1]:-$service_version}}
+    version: ${backend_version}
     tag: ${backend[1]:-$service_version}
     digest: ${backend[2]}
-    release: ${backend_release:-https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/${backend_version:-$service_version}}
+    release: ${backend_release}
   front:
     image: ${front[0]}
-    version: ${front_version:-${front[1]:-$service_version}}
+    version: ${front_version}
     tag: ${front[1]:-$service_version}
     digest: ${front[2]}
-    release: ${front_release:-https://github.com/ChosunUniv2026Capstone/Front/releases/tag/${front_version:-$service_version}}
+    release: ${front_release}
   presenceService:
     image: ${presence[0]}
-    version: ${presence_version:-${presence[1]:-$service_version}}
+    version: ${presence_version}
     tag: ${presence[1]:-$service_version}
     digest: ${presence[2]}
-    release: ${presence_release:-https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/${presence_version:-$service_version}}
+    release: ${presence_release}
   db:
     image: ${db[0]}
-    version: ${db_version:-${db[1]:-$service_version}}
+    version: ${db_version}
     tag: ${db[1]:-$service_version}
     digest: ${db[2]}
     resetRequired: $db_reset_required
-    release: ${db_release:-https://github.com/ChosunUniv2026Capstone/DB/releases/tag/${db_version:-$service_version}}
+    release: ${db_release}
 notes:
   summary: $summary
 YAML
+"$SERVICE_ROOT/scripts/validate-release-manifest.sh" "$out" >/dev/null
 echo "$out"

@@ -14,6 +14,7 @@ done
 case "$service_version" in v[0-9]*.[0-9]*.[0-9]*) ;; *) echo "--service-version must be vX.Y.Z" >&2; exit 2 ;; esac
 manifest="$SERVICE_ROOT/manifests/releases/${service_version}.yml"
 [ -f "$manifest" ] || { echo "missing manifest: $manifest" >&2; exit 1; }
+"$SERVICE_ROOT/scripts/validate-release-manifest.sh" "$manifest"
 env_file="$SERVICE_ROOT/.env.release"
 "$SERVICE_ROOT/scripts/render-release-env.sh" "$manifest" > "$env_file"
 # shellcheck disable=SC1090

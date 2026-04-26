@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 manifest="${1:?usage: render-release-env.sh manifests/releases/vX.Y.Z.yml}"
+SERVICE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+"$SERVICE_ROOT/scripts/validate-release-manifest.sh" "$manifest" >/dev/null
 python3 - "$manifest" <<'PY'
 import re, sys
 from pathlib import Path

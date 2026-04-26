@@ -33,8 +33,11 @@ jobs:
           done
       - name: Validate release manifest examples
         run: |
+          ./scripts/validate-release-manifest.sh --service-version v0.1.0 manifests/service-manifest.example.yml
           ./scripts/render-release-env.sh manifests/service-manifest.example.yml
           if [ -f "manifests/releases/v$(cat version.txt).yml" ]; then
-            test "$(grep '^serviceVersion:' "manifests/releases/v$(cat version.txt).yml" | awk '{print $2}')" = "v$(cat version.txt)"
+            ./scripts/validate-release-manifest.sh --service-version "v$(cat version.txt)" "manifests/releases/v$(cat version.txt).yml"
             ./scripts/render-release-env.sh "manifests/releases/v$(cat version.txt).yml"
           fi
+      - name: Run release manifest contract tests
+        run: python3 -m pytest tests/test_release_manifest_contract.py
