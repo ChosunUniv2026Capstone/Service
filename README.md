@@ -9,7 +9,7 @@
 Linux에 Docker와 Docker Compose가 설치되어 있다면, `Backend`, `Front`, `PresenceService`, `DB` 레포를 모두 클론하지 않아도 바로 Smart Class 스택을 실행할 수 있습니다. 아래 명령은 이 레포에서 실행에 필요한 `.env`, Compose 파일, nginx 설정만 내려받고, GitHub Packages/GHCR에 공개된 이미지를 사용해 서비스를 띄웁니다.
 
 ```bash
-mkdir -p smart-class-service/nginx
+mkdir -p smart-class-service/nginx smart-class-service/garage smart-class-service/scripts
 cd smart-class-service
 
 # 실행에 필요한 최소 파일만 다운로드합니다.
@@ -17,6 +17,9 @@ curl -fsSLo .env https://raw.githubusercontent.com/ChosunUniv2026Capstone/Servic
 curl -fsSLo compose.yml https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/compose.yml
 curl -fsSLo compose.image.yml https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/compose.image.yml
 curl -fsSLo nginx/local.conf https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/nginx/local.conf
+curl -fsSLo garage/garage.toml https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/garage/garage.toml
+curl -fsSLo scripts/smoke-garage.sh https://raw.githubusercontent.com/ChosunUniv2026Capstone/Service/main/scripts/smoke-garage.sh
+chmod +x scripts/smoke-garage.sh
 
 # plain `docker compose up`이 image mode로 동작하도록 설정합니다.
 # Linux Compose의 COMPOSE_FILE 구분자는 `:`입니다.
@@ -25,6 +28,7 @@ printf '\nCOMPOSE_FILE=compose.yml:compose.image.yml\n' >> .env
 # 공개 GHCR 이미지를 pull하고 서비스를 시작합니다.
 docker compose up -d --pull always
 curl -fsS http://localhost:3100/health
+./scripts/smoke-garage.sh
 ```
 
 정상이라면 아래 응답이 반환됩니다.
@@ -57,6 +61,15 @@ COMPOSE_FILE=compose.yml:compose.image.yml
 
 # 로컬 테스트용 기본값입니다. 외부에 공개되는 환경에서는 반드시 바꾸세요.
 JWT_SECRET=change-me-for-local-demo
+
+# Garage/S3-compatible object storage. These demo defaults are not production secrets.
+GARAGE_RPC_SECRET=0000000000000000000000000000000000000000000000000000000000000000
+GARAGE_DEFAULT_ACCESS_KEY=GK00000000000000000000000000
+GARAGE_DEFAULT_SECRET_KEY=0000000000000000000000000000000000000000000000000000000000000000
+GARAGE_DEFAULT_BUCKET=smart-class
+OBJECT_STORAGE_ENDPOINT=http://garage:3900
+OBJECT_STORAGE_BUCKET=smart-class
+ASSIGNMENT_UPLOAD_MAX_FILE_SIZE_BYTES=536870912
 EOF_ENV
 ```
 
@@ -131,6 +144,28 @@ EOF_ENV
 ```
 
 매니페스트에 `components.db.resetRequired: true`가 있고 DB 이미지가 변경된 경우, `--reset-demo-data true`를 명시하지 않으면 `docker compose up` 전에 실패합니다. reset은 이 Service Compose 프로젝트의 DB 볼륨만 삭제합니다.
+
+## Garage object storage
+
+`Service` starts a single-node Garage object store in local, image, and demo modes. Garage is used only as an S3-compatible runtime dependency; application traffic still goes through Backend APIs, so Front never receives Garage credentials. The default bucket is `smart-class` and app object keys are expected to use typed prefixes such as `assignments/`, `learning/`, `notices/`, `exams/`, `reports/`, and `ops/`.
+
+Important runtime contracts:
+
+- Garage data is persisted in the Compose volume `garage-data`; deleting it with `docker compose down -v` deletes stored objects.
+- `garage/garage.toml` keeps Garage metadata and data under `/var/lib/garage` and exposes the S3 API on the internal `garage:3900` endpoint.
+- `compose.yml` injects `OBJECT_STORAGE_*` variables into Backend with path-style S3 enabled, keeping future AWS/S3-compatible migration configurable.
+- nginx local/demo configs allow 512 MiB uploads and 300-second proxy read/send timeouts so lecture/video-like uploads are not blocked by the previous demo 10 MiB cap.
+- `ops/` objects and the local Garage volume are demo/local operational artifacts only; production-grade backup requires an off-host copy or separate restricted credentials.
+
+Smoke checks:
+
+```bash
+# Use default image-mode compose files. Set SERVICE_COMPOSE_FILES=compose.yml:compose.local.yml for local source mode.
+./scripts/smoke-garage.sh
+curl -fsS http://localhost:3100/health
+```
+
+For demo releases, `scripts/render-release-env.sh` emits Garage/Object Storage defaults into `.env.release`; override the Garage secrets in the GitHub environment or deployment shell before rendering when the demo stack is externally reachable.
 
 ## Release manifests
 

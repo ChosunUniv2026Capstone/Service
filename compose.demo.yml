@@ -5,6 +5,9 @@ services:
   redis:
     restart: unless-stopped
 
+  garage:
+    restart: unless-stopped
+
   presence-service:
     restart: unless-stopped
 

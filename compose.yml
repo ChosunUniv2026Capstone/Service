@@ -25,6 +25,24 @@ services:
       timeout: 5s
       retries: 10
 
+  garage:
+    image: dxflrs/garage:v2.3.0
+    command: ["/garage", "server", "--single-node", "--default-bucket"]
+    environment:
+      GARAGE_RPC_SECRET: ${GARAGE_RPC_SECRET:-0000000000000000000000000000000000000000000000000000000000000000}
+      GARAGE_DEFAULT_ACCESS_KEY: ${GARAGE_DEFAULT_ACCESS_KEY:-GK00000000000000000000000000}
+      GARAGE_DEFAULT_SECRET_KEY: ${GARAGE_DEFAULT_SECRET_KEY:-0000000000000000000000000000000000000000000000000000000000000000}
+      GARAGE_DEFAULT_BUCKET: ${GARAGE_DEFAULT_BUCKET:-smart-class}
+    volumes:
+      - garage-data:/var/lib/garage
+      - ./garage/garage.toml:/etc/garage.toml:ro
+    healthcheck:
+      test: ["CMD-SHELL", "/garage status >/dev/null && /garage bucket info \"$${GARAGE_DEFAULT_BUCKET:-smart-class}\" >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
   presence-service:
     environment:
       REDIS_HOST: ${REDIS_HOST:-redis}
@@ -43,7 +61,17 @@ services:
       JWT_SECRET: ${JWT_SECRET:-smart-class-dev-jwt-secret}
       ACCESS_COOKIE_SECURE: ${ACCESS_COOKIE_SECURE:-false}
       ACCESS_COOKIE_SAMESITE: ${ACCESS_COOKIE_SAMESITE:-lax}
+      ASSIGNMENT_UPLOAD_MAX_FILE_SIZE_BYTES: ${ASSIGNMENT_UPLOAD_MAX_FILE_SIZE_BYTES:-536870912}
+      OBJECT_STORAGE_PROVIDER: ${OBJECT_STORAGE_PROVIDER:-s3}
+      OBJECT_STORAGE_ENDPOINT: ${OBJECT_STORAGE_ENDPOINT:-http://garage:3900}
+      OBJECT_STORAGE_BUCKET: ${OBJECT_STORAGE_BUCKET:-smart-class}
+      OBJECT_STORAGE_REGION: ${OBJECT_STORAGE_REGION:-garage}
+      OBJECT_STORAGE_ACCESS_KEY: ${OBJECT_STORAGE_ACCESS_KEY:-${GARAGE_DEFAULT_ACCESS_KEY:-GK00000000000000000000000000}}
+      OBJECT_STORAGE_SECRET_KEY: ${OBJECT_STORAGE_SECRET_KEY:-${GARAGE_DEFAULT_SECRET_KEY:-0000000000000000000000000000000000000000000000000000000000000000}}
+      OBJECT_STORAGE_FORCE_PATH_STYLE: ${OBJECT_STORAGE_FORCE_PATH_STYLE:-true}
     depends_on:
+      garage:
+        condition: service_healthy
       postgres:
         condition: service_healthy
       presence-service:
@@ -69,3 +97,4 @@ services:
 volumes:
   postgres-data:
   redis-data:
+  garage-data:

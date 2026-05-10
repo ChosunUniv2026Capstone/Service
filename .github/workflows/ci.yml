@@ -41,5 +41,5 @@ jobs:
           fi
       - name: Install Python test runner
         run: python3 -m pip install --user pytest
-      - name: Run release manifest contract tests
-        run: python3 -m pytest tests/test_release_manifest_contract.py
+      - name: Run Service contract tests
+        run: python3 -m pytest tests/test_release_manifest_contract.py tests/test_garage_stack_contract.py
