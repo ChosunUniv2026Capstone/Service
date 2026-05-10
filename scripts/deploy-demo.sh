@@ -6,12 +6,19 @@ reset_demo_data="false"
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --service-version) service_version="$2"; shift 2 ;;
-    --reset-demo-data) reset_demo_data="true"; shift ;;
+    --reset-demo-data)
+      if [ "$#" -ge 2 ] && [ "${2#--}" = "$2" ]; then
+        reset_demo_data="$2"; shift 2
+      else
+        reset_demo_data="true"; shift
+      fi
+      ;;
     --reset-demo-data=*) reset_demo_data="${1#*=}"; shift ;;
     *) echo "unknown argument: $1" >&2; exit 2 ;;
   esac
 done
 case "$service_version" in v[0-9]*.[0-9]*.[0-9]*) ;; *) echo "--service-version must be vX.Y.Z" >&2; exit 2 ;; esac
+case "$reset_demo_data" in true|false) ;; *) echo "--reset-demo-data must be true or false" >&2; exit 2 ;; esac
 manifest="$SERVICE_ROOT/manifests/releases/${service_version}.yml"
 [ -f "$manifest" ] || { echo "missing manifest: $manifest" >&2; exit 1; }
 "$SERVICE_ROOT/scripts/validate-release-manifest.sh" "$manifest"

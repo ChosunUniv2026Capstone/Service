@@ -43,8 +43,8 @@ def test_release_manifest_validates_and_renders_pinned_refs():
 
 
 def test_current_demo_release_manifest_validates_and_renders_v2_refs():
-    manifest = SERVICE_ROOT / "manifests" / "releases" / "v0.2.0.yml"
-    validation = run(str(VALIDATOR), "--service-version", "v0.2.0", str(manifest))
+    manifest = SERVICE_ROOT / "manifests" / "releases" / "v0.2.1.yml"
+    validation = run(str(VALIDATOR), "--service-version", "v0.2.1", str(manifest))
     assert validation.returncode == 0, validation.stderr
 
     rendered = run(str(RENDERER), str(manifest))
