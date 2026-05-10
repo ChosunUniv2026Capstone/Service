@@ -1,0 +1,30 @@
+serviceVersion: v0.3.1
+releasedAt: 2026-05-10T12:09:12Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.4.0
+    tag: v0.4.0
+    digest: sha256:85a307235021786facf41f66ad04a16f56a1bbeca7ea503c17568b1583e5a8d4
+    release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.4.0
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.4.0
+    tag: v0.4.0
+    digest: sha256:0256c4fefa7485b04bca3f441baedc42ccafa5e50d689ab36fee32de958188ad
+    release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/smart-class-front-v0.4.0
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.2.0
+    tag: v0.2.0
+    digest: sha256:e09dadd83acec809b8395eb933c3b7200e9624f1114fdd45c0012f6df7251f39
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.2.0
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.4.0
+    tag: v0.4.0
+    digest: sha256:068158638f5ae68e26d00fdbfccca51608fc9387112bdd48d8657b01c3d13c18
+    resetRequired: true
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.4.0
+notes:
+  summary: Demo release for Garage-backed object storage rollout with shell-less Garage healthcheck.
