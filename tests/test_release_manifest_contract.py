@@ -104,3 +104,13 @@ def test_create_release_manifest_requires_explicit_component_metadata(tmp_path):
     manifest = service_copy / "manifests" / "releases" / "v1.2.3.yml"
     validation = subprocess.run([str(service_copy / "scripts" / "validate-release-manifest.sh"), "--service-version", "v1.2.3", str(manifest)], text=True, capture_output=True)
     assert validation.returncode == 0, validation.stderr
+
+
+def test_demo_deploy_reset_stops_postgres_before_removing_volume():
+    script = (SERVICE_ROOT / "scripts" / "deploy-demo.sh").read_text()
+    stop_pos = script.index('docker compose "${compose_files[@]}" stop backend postgres')
+    rm_pos = script.index('docker compose "${compose_files[@]}" rm --force --stop postgres')
+    volume_pos = script.index('docker volume rm "${project}_postgres-data"')
+    pull_pos = script.index('docker compose "${compose_files[@]}" pull')
+    assert stop_pos < rm_pos < volume_pos < pull_pos
+    assert 'docker volume rm "${project}_postgres-data" 2>/dev/null || true' not in script
