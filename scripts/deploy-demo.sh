@@ -39,20 +39,21 @@ fi
 if [ -n "${GHCR_READ_TOKEN:-}" ]; then
   echo "$GHCR_READ_TOKEN" | docker login ghcr.io -u "${GHCR_READ_USER:-oauth2}" --password-stdin
 fi
+compose_files=(
+  --project-directory "$SERVICE_ROOT"
+  --env-file "$env_file"
+  -f "$SERVICE_ROOT/compose.yml"
+  -f "$SERVICE_ROOT/compose.image.yml"
+  -f "$SERVICE_ROOT/compose.demo.yml"
+)
 if [ "$reset_demo_data" = "true" ]; then
-  docker volume rm "${project}_postgres-data" 2>/dev/null || true
+  docker compose "${compose_files[@]}" stop backend postgres 2>/dev/null || true
+  docker compose "${compose_files[@]}" rm --force --stop postgres 2>/dev/null || true
+  if docker volume inspect "${project}_postgres-data" >/dev/null 2>&1; then
+    docker volume rm "${project}_postgres-data"
+  fi
 fi
-docker compose --project-directory "$SERVICE_ROOT" \
-  --env-file "$env_file" \
-  -f "$SERVICE_ROOT/compose.yml" \
-  -f "$SERVICE_ROOT/compose.image.yml" \
-  -f "$SERVICE_ROOT/compose.demo.yml" \
-  pull
-docker compose --project-directory "$SERVICE_ROOT" \
-  --env-file "$env_file" \
-  -f "$SERVICE_ROOT/compose.yml" \
-  -f "$SERVICE_ROOT/compose.image.yml" \
-  -f "$SERVICE_ROOT/compose.demo.yml" \
-  up -d
+docker compose "${compose_files[@]}" pull
+docker compose "${compose_files[@]}" up -d
 echo "$current_db_digest" > "$state_dir/db.digest"
 "$SERVICE_ROOT/scripts/healthcheck.sh" "${DEMO_PUBLIC_URL:-https://smart-class.org}/health"
