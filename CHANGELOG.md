@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.3.0...v0.3.1) (2026-05-10)
+
+
+### Bug Fixes
+
+* **service:** avoid shell-only Garage healthcheck ([d65eb21](https://github.com/ChosunUniv2026Capstone/Service/commit/d65eb21cc886cd7b80f7a220c6550601115a3ebc))
+
 ## [0.3.0](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.2.1...v0.3.0) (2026-05-10)
 
 
