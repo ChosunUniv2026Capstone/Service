@@ -23,7 +23,7 @@ def read(path: Path) -> str:
 
 
 @pytest.mark.parametrize("repo,expected", COMPONENTS.items())
-def test_component_release_please_config_and_seed_version(repo, expected):
+def test_component_release_please_config_and_current_version(repo, expected):
     root = WORKSPACE_ROOT / repo
     require_workspace_component(root)
 
@@ -31,14 +31,15 @@ def test_component_release_please_config_and_seed_version(repo, expected):
     manifest = json.loads((root / ".release-please-manifest.json").read_text())
     package = config["packages"]["."]
     assert package["release-type"] == expected["release_type"]
-    assert manifest["."] == "0.1.0"
     assert (root / "CHANGELOG.md").is_file()
 
     if repo == "Front":
         package_json = json.loads((root / "package.json").read_text())
-        assert package_json["version"] == "0.1.0"
+        current_version = package_json["version"]
     else:
-        assert (root / "version.txt").read_text().strip() == "0.1.0"
+        current_version = (root / "version.txt").read_text().strip()
+    assert manifest["."] == current_version
+    assert re.fullmatch(r"\d+\.\d+\.\d+", current_version)
 
 
 @pytest.mark.parametrize("repo,expected", COMPONENTS.items())

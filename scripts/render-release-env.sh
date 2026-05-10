@@ -4,9 +4,18 @@ manifest="${1:?usage: render-release-env.sh manifests/releases/vX.Y.Z.yml}"
 SERVICE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 "$SERVICE_ROOT/scripts/validate-release-manifest.sh" "$manifest" >/dev/null
 python3 - "$manifest" <<'PY'
+import os
 import re, sys
 from pathlib import Path
 text = Path(sys.argv[1]).read_text()
+defaults = {
+    'COMPOSE_PROJECT_NAME': 'smart-class-demo',
+    'NGINX_PORT': '3100',
+    'DEMO_PUBLIC_URL': 'https://smart-class.org',
+    'CORS_ORIGINS': 'https://smart-class.org',
+}
+for env_name, default in defaults.items():
+    print(f"{env_name}={os.environ.get(env_name, default)}")
 keys = {
     'backend': 'BACKEND_IMAGE',
     'front': 'FRONT_IMAGE',

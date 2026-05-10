@@ -31,10 +31,29 @@ def test_release_manifest_validates_and_renders_pinned_refs():
     rendered = run(str(RENDERER), str(MANIFEST))
     assert rendered.returncode == 0, rendered.stderr
     env = dict(line.split("=", 1) for line in rendered.stdout.strip().splitlines())
+    assert env["COMPOSE_PROJECT_NAME"] == "smart-class-demo"
+    assert env["NGINX_PORT"] == "3100"
+    assert env["DEMO_PUBLIC_URL"] == "https://smart-class.org"
+    assert env["CORS_ORIGINS"] == "https://smart-class.org"
     assert env["BACKEND_IMAGE"].startswith("ghcr.io/chosununiv2026capstone/backend:sha-")
-    for value in env.values():
+    image_env = {key: value for key, value in env.items() if key.endswith("_IMAGE")}
+    for value in image_env.values():
         assert "@sha256:" in value
         assert ":latest" not in value
+
+
+def test_current_demo_release_manifest_validates_and_renders_v2_refs():
+    manifest = SERVICE_ROOT / "manifests" / "releases" / "v0.2.0.yml"
+    validation = run(str(VALIDATOR), "--service-version", "v0.2.0", str(manifest))
+    assert validation.returncode == 0, validation.stderr
+
+    rendered = run(str(RENDERER), str(manifest))
+    assert rendered.returncode == 0, rendered.stderr
+    env = dict(line.split("=", 1) for line in rendered.stdout.strip().splitlines())
+    assert env["COMPOSE_PROJECT_NAME"] == "smart-class-demo"
+    assert env["BACKEND_IMAGE"].startswith("ghcr.io/chosununiv2026capstone/backend:v0.3.0@sha256:")
+    assert env["FRONT_IMAGE"].startswith("ghcr.io/chosununiv2026capstone/front:v0.3.0@sha256:")
+    assert env["DB_IMAGE"].startswith("ghcr.io/chosununiv2026capstone/db:v0.3.0@sha256:")
 
 
 def test_manifest_validator_rejects_required_negative_cases(tmp_path):
