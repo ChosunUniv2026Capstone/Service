@@ -1,0 +1,30 @@
+serviceVersion: v0.2.0
+releasedAt: 2026-05-10T08:53:16Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.3.0
+    tag: v0.3.0
+    digest: sha256:4e7c90413710e19e00ff01fafe5f7ada35bf21a438f4bf5c8ddf3927269e9537
+    release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.3.0
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.3.0
+    tag: v0.3.0
+    digest: sha256:55d4091550a2893f00c22b7c05f186b0857636f7c3854f286e27622071827bf7
+    release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/smart-class-front-v0.3.0
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.2.0
+    tag: v0.2.0
+    digest: sha256:e09dadd83acec809b8395eb933c3b7200e9624f1114fdd45c0012f6df7251f39
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.2.0
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.3.0
+    tag: v0.3.0
+    digest: sha256:8023cf7c4e4ff81ad6fa7b50e15b1d812c5e4b3a8bf051f43453c7ea3eafd630
+    resetRequired: false
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.3.0
+notes:
+  summary: Demo GHCR release for assignment workflow integration.
