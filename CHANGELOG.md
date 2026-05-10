@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.3.1...v0.3.2) (2026-05-10)
+
+
+### Bug Fixes
+
+* **service:** ensure demo reset recreates postgres volume ([#15](https://github.com/ChosunUniv2026Capstone/Service/issues/15)) ([7aa05d8](https://github.com/ChosunUniv2026Capstone/Service/commit/7aa05d8801f2b5fac35eda20764abaaf675a5ff1))
+
 ## [0.3.1](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.3.0...v0.3.1) (2026-05-10)
 
 
