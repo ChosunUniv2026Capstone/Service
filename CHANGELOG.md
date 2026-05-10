@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.2.1...v0.3.0) (2026-05-10)
+
+
+### Features
+
+* **service:** provide Garage runtime for Backend storage ([e9f6c53](https://github.com/ChosunUniv2026Capstone/Service/commit/e9f6c53ca926709c097714e5ae7f94abb2392cc8))
+
 ## [0.2.1](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.2.0...v0.2.1) (2026-05-10)
 
 
