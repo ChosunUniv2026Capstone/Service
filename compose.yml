@@ -37,7 +37,7 @@ services:
       - garage-data:/var/lib/garage
       - ./garage/garage.toml:/etc/garage.toml:ro
     healthcheck:
-      test: ["CMD-SHELL", "/garage status >/dev/null && /garage bucket info \"$${GARAGE_DEFAULT_BUCKET:-smart-class}\" >/dev/null"]
+      test: ["CMD", "/garage", "status"]
       interval: 10s
       timeout: 5s
       retries: 12
