@@ -17,7 +17,7 @@ def test_compose_wires_garage_bucket_and_backend_s3_env():
     assert "--default-bucket" in compose
     assert "garage-data:/var/lib/garage" in compose
     assert "./garage/garage.toml:/etc/garage.toml:ro" in compose
-    assert "/garage bucket info" in compose
+    assert 'test: ["CMD", "/garage", "status"]' in compose
 
     assert re.search(r"backend:\n(?:.*\n)*?      OBJECT_STORAGE_PROVIDER: ", compose)
     assert "OBJECT_STORAGE_ENDPOINT: ${OBJECT_STORAGE_ENDPOINT:-http://garage:3900}" in compose
