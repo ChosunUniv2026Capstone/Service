@@ -197,6 +197,9 @@ Release Please 릴리스 PR 브랜치에서 merge 전에 매니페스트를 생�
 - `DEMO_SSH_USER`
 - `DEMO_SSH_KEY`
 - `DEMO_PUBLIC_URL=https://smart-class.org`
+- `DEMO_RUNNER_LABELS` (optional JSON array; defaults to `["self-hosted","linux"]`)
+
+`deploy-demo` must run on a self-hosted runner that can reach the private demo SSH host. GitHub-hosted runners cannot reach `10.10.100.2`/private demo-network addresses, so the workflow intentionally does not use `ubuntu-latest`.
 
 Private GHCR fallback이 필요할 때만 사용하는 선택 값:
 
