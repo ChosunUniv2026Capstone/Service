@@ -21,7 +21,9 @@ env:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # The demo host is on a private network, so deployment must run on a
+    # network-reachable self-hosted runner rather than GitHub-hosted ubuntu.
+    runs-on: ${{ fromJSON(vars.DEMO_RUNNER_LABELS || '["self-hosted","linux"]') }}
     environment: demo-production
     steps:
       - name: Validate input version

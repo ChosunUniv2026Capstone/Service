@@ -93,3 +93,15 @@ def test_service_release_and_deploy_paths_validate_manifest_before_use():
     assert "validate-release-manifest.sh" in release_workflow
     assert re.search(r"validate-release-manifest\.sh.*\$manifest", deploy_script, re.S)
     assert "validate-release-manifest.sh" in renderer
+
+
+def test_deploy_demo_uses_network_reachable_self_hosted_runner():
+    service = WORKSPACE_ROOT / "Service"
+    workflow = read(service / ".github" / "workflows" / "deploy-demo.yml")
+    readme = read(service / "README.md")
+
+    assert "ubuntu-latest" not in workflow
+    assert "DEMO_RUNNER_LABELS" in workflow
+    assert "[\"self-hosted\",\"linux\"]" in workflow
+    assert "self-hosted runner" in readme
+    assert "GitHub-hosted runners cannot reach" in readme
