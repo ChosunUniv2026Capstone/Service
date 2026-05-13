@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.3.2...v0.3.3) (2026-05-14)
+
+
+### Chores
+
+* refresh package version after live full-feature E2E validation
+
 ## [0.3.2](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.3.1...v0.3.2) (2026-05-10)
 
 
