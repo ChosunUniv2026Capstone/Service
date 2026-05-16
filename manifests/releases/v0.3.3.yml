@@ -1,0 +1,30 @@
+serviceVersion: v0.3.3
+releasedAt: 2026-05-13T21:55:01Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.4.1
+    tag: v0.4.1
+    digest: sha256:38b90d8e5f3115466fee10634ad7398b9929dfc6c7407f18fb5022bb3e5d90d6
+    release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.4.1
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.4.1
+    tag: v0.4.1
+    digest: sha256:92fdadfe8e34a964af3b39c9525220b4318cab9744ce1e9aac383a87847a43c6
+    release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/smart-class-front-v0.4.1
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.2.1
+    tag: v0.2.1
+    digest: sha256:a67e9f9f48cd8a79a6f863621da267500f9eeeadb01baf4cb0a629e8f10f094d
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.2.1
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.4.1
+    tag: v0.4.1
+    digest: sha256:369f676df4cf2fa8f720d75f266c87bb8aa83cb364e8b4ada200e9347a38e47f
+    resetRequired: true
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.4.1
+notes:
+  summary: Demo release for live full-feature E2E validation with v0.4.1 component images.
