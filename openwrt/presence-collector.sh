@@ -88,6 +88,8 @@ post_snapshot() {
 
 while true; do
   payload="$(build_payload)"
-  post_snapshot "$payload" || true
+  if ! post_snapshot "$payload"; then
+    logger -t presence-collector "snapshot push failed for ${COLLECTOR_AP_ID}" 2>/dev/null || true
+  fi
   sleep "$PUSH_INTERVAL_SECONDS"
 done
