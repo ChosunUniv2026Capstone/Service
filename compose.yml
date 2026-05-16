@@ -48,6 +48,11 @@ services:
       REDIS_HOST: ${REDIS_HOST:-redis}
       REDIS_PORT: ${REDIS_PORT:-6379}
       REDIS_DB: ${REDIS_DB:-0}
+      BACKEND_SERVICE_URL: ${BACKEND_SERVICE_URL:-http://backend:8000}
+      PRESENCE_INTERNAL_TOKEN: ${PRESENCE_INTERNAL_TOKEN:-smart-class-dev-internal-token}
+      AP_TOKEN_HASH_SECRET: ${AP_TOKEN_HASH_SECRET:-smart-class-dev-ap-token-pepper}
+      COLLECTOR_OFFLINE_AFTER_SECONDS: ${COLLECTOR_OFFLINE_AFTER_SECONDS:-10}
+      COLLECTOR_TIMESTAMP_WINDOW_SECONDS: ${COLLECTOR_TIMESTAMP_WINDOW_SECONDS:-60}
     depends_on:
       redis:
         condition: service_healthy
@@ -59,6 +64,8 @@ services:
       PRESENCE_SERVICE_URL: ${PRESENCE_SERVICE_URL:-http://presence-service:8001}
       CORS_ORIGINS: ${CORS_ORIGINS:-*}
       JWT_SECRET: ${JWT_SECRET:-smart-class-dev-jwt-secret}
+      PRESENCE_INTERNAL_TOKEN: ${PRESENCE_INTERNAL_TOKEN:-smart-class-dev-internal-token}
+      AP_TOKEN_HASH_SECRET: ${AP_TOKEN_HASH_SECRET:-smart-class-dev-ap-token-pepper}
       ACCESS_COOKIE_SECURE: ${ACCESS_COOKIE_SECURE:-false}
       ACCESS_COOKIE_SAMESITE: ${ACCESS_COOKIE_SAMESITE:-lax}
       ASSIGNMENT_UPLOAD_MAX_FILE_SIZE_BYTES: ${ASSIGNMENT_UPLOAD_MAX_FILE_SIZE_BYTES:-536870912}
