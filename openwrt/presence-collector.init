@@ -1,0 +1,12 @@
+#!/bin/sh /etc/rc.common
+START=95
+STOP=10
+USE_PROCD=1
+
+start_service() {
+  [ -f /etc/presence-collector.env ] && . /etc/presence-collector.env
+  procd_open_instance
+  procd_set_param command /usr/bin/presence-collector.sh
+  procd_set_param respawn 5 10 0
+  procd_close_instance
+}
