@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.3.3...v0.4.0) (2026-05-16)
+
+
+### Features
+
+* **service:** wire OpenWrt collector push runtime ([47efca3](https://github.com/ChosunUniv2026Capstone/Service/commit/47efca3a212a3ecd62132bb6944527c1dd8da7e1))
+
 ## [0.3.3](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.3.2...v0.3.3) (2026-05-14)
 
 
