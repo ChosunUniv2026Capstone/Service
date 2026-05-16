@@ -5,8 +5,15 @@ USE_PROCD=1
 
 start_service() {
   [ -f /etc/presence-collector.env ] && . /etc/presence-collector.env
+
   procd_open_instance
   procd_set_param command /usr/bin/presence-collector.sh
+  procd_set_param env \
+    COLLECTOR_AP_ID="$COLLECTOR_AP_ID" \
+    PRESENCE_COLLECTOR_URL="$PRESENCE_COLLECTOR_URL" \
+    PRESENCE_COLLECTOR_TOKEN="$PRESENCE_COLLECTOR_TOKEN" \
+    COLLECTOR_INTERFACES="${COLLECTOR_INTERFACES:-}" \
+    PUSH_INTERVAL_SECONDS="${PUSH_INTERVAL_SECONDS:-3}"
   procd_set_param respawn 5 10 0
   procd_close_instance
 }
