@@ -54,17 +54,40 @@ build_payload() {
   printf ']}'
 }
 
-while true; do
-  payload="$(build_payload)"
+post_snapshot() {
+  payload="$1"
   nonce="$(date +%s)-$$-$RANDOM"
   timestamp="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  curl -fsS \
-    -H "Authorization: Bearer ${PRESENCE_COLLECTOR_TOKEN}" \
-    -H "Content-Type: application/json" \
-    -H "X-Collector-Nonce: ${nonce}" \
-    -H "X-Collector-Timestamp: ${timestamp}" \
-    -X POST \
-    --data "$payload" \
-    "${PRESENCE_COLLECTOR_URL%/}/aps/${COLLECTOR_AP_ID}/snapshot" >/dev/null || true
+  url="${PRESENCE_COLLECTOR_URL%/}/aps/${COLLECTOR_AP_ID}/snapshot"
+
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsS \
+      -H "Authorization: Bearer ${PRESENCE_COLLECTOR_TOKEN}" \
+      -H "Content-Type: application/json" \
+      -H "X-Collector-Nonce: ${nonce}" \
+      -H "X-Collector-Timestamp: ${timestamp}" \
+      -X POST \
+      --data "$payload" \
+      "$url" >/dev/null
+    return $?
+  fi
+
+  if command -v wget >/dev/null 2>&1; then
+    wget -qO- \
+      --header="Authorization: Bearer ${PRESENCE_COLLECTOR_TOKEN}" \
+      --header="Content-Type: application/json" \
+      --header="X-Collector-Nonce: ${nonce}" \
+      --header="X-Collector-Timestamp: ${timestamp}" \
+      --post-data="$payload" \
+      "$url" >/dev/null
+    return $?
+  fi
+
+  return 127
+}
+
+while true; do
+  payload="$(build_payload)"
+  post_snapshot "$payload" || true
   sleep "$PUSH_INTERVAL_SECONDS"
 done
