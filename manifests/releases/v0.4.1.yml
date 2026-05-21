@@ -1,0 +1,30 @@
+serviceVersion: v0.4.1
+releasedAt: 2026-05-21T15:56:14Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.6.0
+    tag: v0.6.0
+    digest: sha256:5b5e57d94800f3616b3d858982f547a70a1e6180a4eea66a180cfd3d8712902f
+    release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.6.0
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.6.0
+    tag: v0.6.0
+    digest: sha256:76350180ccf650c0e02246c1aec75b8f8665fd7a0929dde151b0a2adca6722b6
+    release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/smart-class-front-v0.6.0
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.3.3
+    tag: v0.3.3
+    digest: sha256:ac878c31881bebcc61d8280f0fe805ade0634e8044a58911369891a9a5fab0df
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.3.3
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.5.0
+    tag: v0.5.0
+    digest: sha256:11c5004404350e0095019eef300fc1a0d8459c9ca590290f6a337a8d4cfe550d
+    resetRequired: false
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.5.0
+notes:
+  summary: Demo release for professor attendance CSV summary/full downloads.
