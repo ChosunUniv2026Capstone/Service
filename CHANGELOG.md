@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.4.0...v0.4.1) (2026-05-21)
+
+
+### Bug Fixes
+
+* **service:** pin attendance CSV demo manifest ([e89dcdb](https://github.com/ChosunUniv2026Capstone/Service/commit/e89dcdbc00d8ee7a981041c2159d191f8a2a3a8c))
+
 ## [0.4.0](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.3.3...v0.4.0) (2026-05-16)
 
 
