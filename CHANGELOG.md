@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.4.1...v0.4.2) (2026-05-22)
+
+
+### Bug Fixes
+
+* **service:** pin assignment workflow demo release ([7b934a3](https://github.com/ChosunUniv2026Capstone/Service/commit/7b934a3fbe9670ebf9027b675d0f8b1648f407fa))
+
 ## [0.4.1](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.4.0...v0.4.1) (2026-05-21)
 
 
