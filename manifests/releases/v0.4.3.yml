@@ -1,0 +1,30 @@
+serviceVersion: v0.4.3
+releasedAt: 2026-05-31T14:03:36Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.7.0
+    tag: v0.7.0
+    digest: sha256:2e18b8e16e5037e08363bf2be6b8b62570ede351f6b2906e75b08ca8d7bbd0d0
+    release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.7.0
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.6.2
+    tag: sha-393166e
+    digest: sha256:93b65c6bfac9ce53acb86f25529d4d140c646263b7b1692ca72ecbd45ec85135
+    release: https://github.com/ChosunUniv2026Capstone/Front/actions/runs/26714718081
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.3.3
+    tag: v0.3.3
+    digest: sha256:ac878c31881bebcc61d8280f0fe805ade0634e8044a58911369891a9a5fab0df
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.3.3
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.5.0
+    tag: v0.5.0
+    digest: sha256:11c5004404350e0095019eef300fc1a0d8459c9ca590290f6a337a8d4cfe550d
+    resetRequired: false
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.5.0
+notes:
+  summary: Demo release for assignment calendar and login fixes.
