@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.4.2...v0.4.3) (2026-05-31)
+
+
+### Bug Fixes
+
+* **service:** pin latest frontend demo image for assignment calendar rollout
+
 ## [0.4.2](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.4.1...v0.4.2) (2026-05-22)
 
 
