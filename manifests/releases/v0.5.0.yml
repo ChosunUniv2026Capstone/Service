@@ -1,0 +1,30 @@
+serviceVersion: v0.5.0
+releasedAt: 2026-06-10T19:07:30Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.8.0
+    tag: v0.8.0
+    digest: sha256:485d43a56e7c90d5dd4e4ef03a4a69c5233b9dd3a0bec8c03259f89bdc0b757e
+    release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.8.0
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.7.0
+    tag: v0.7.0
+    digest: sha256:a160114a8795fb270c01fc890925d00727480b0b6700e5a45ca8da23ca0456a5
+    release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/smart-class-front-v0.7.0
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.3.3
+    tag: v0.3.3
+    digest: sha256:ac878c31881bebcc61d8280f0fe805ade0634e8044a58911369891a9a5fab0df
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.3.3
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.6.0
+    tag: v0.6.0
+    digest: sha256:ba27783565a9fea4de2d720540852d4aec95f697a10d29f123eed03ee68ff9b6
+    resetRequired: true
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.6.0
+notes:
+  summary: Demo release for continuous automatic attendance and 24/7 QA course seed.

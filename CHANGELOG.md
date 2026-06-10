@@ -5,6 +5,7 @@
 
 ### Features
 
+* **service:** pin continuous attendance component images and DB reset manifest
 * **service:** enable reproducible GHCR demo release ([#5](https://github.com/ChosunUniv2026Capstone/Service/issues/5)) ([57a12f6](https://github.com/ChosunUniv2026Capstone/Service/commit/57a12f669661b9b4b81888664a6aae4764474290))
 * **service:** establish runtime orchestration home ([3018b07](https://github.com/ChosunUniv2026Capstone/Service/commit/3018b07d8068b61baff4d4922eff0c2a7832958d))
 * **service:** provide Garage runtime for Backend storage ([e9f6c53](https://github.com/ChosunUniv2026Capstone/Service/commit/e9f6c53ca926709c097714e5ae7f94abb2392cc8))
