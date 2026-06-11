@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.0...v0.5.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **service:** pin all-student CSE999 DB seed ([17af919](https://github.com/ChosunUniv2026Capstone/Service/commit/17af91951b2e0577ee8a5552b8585ebb4cd34b8a))
+
 ## [0.5.0](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.4.3...v0.5.0) (2026-05-31)
 
 
