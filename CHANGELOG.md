@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.2...v0.5.3) (2026-06-11)
+
+
+### Bug Fixes
+
+* **service:** pin CSE999 attendance fixes ([af6c21b](https://github.com/ChosunUniv2026Capstone/Service/commit/af6c21b8c561efcc4cd5bd8cf7382bac9a1a7638))
+
 ## [0.5.2](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.1...v0.5.2) (2026-06-11)
 
 
