@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.1...v0.5.2) (2026-06-11)
+
+
+### Bug Fixes
+
+* **service:** pin frontend attendance UI release ([ddd4772](https://github.com/ChosunUniv2026Capstone/Service/commit/ddd4772cdf1c365320780a8cc52dd5f568b9711e))
+
 ## [0.5.1](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.0...v0.5.1) (2026-06-11)
 
 
