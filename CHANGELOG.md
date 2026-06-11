@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.4](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.3...v0.5.4) (2026-06-11)
+
+
+### Bug Fixes
+
+* **service:** pin contained attendance scroll release ([6ba334c](https://github.com/ChosunUniv2026Capstone/Service/commit/6ba334c84ebe5076031f2130837d608f9f112091))
+
 ## [0.5.3](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.2...v0.5.3) (2026-06-11)
 
 
