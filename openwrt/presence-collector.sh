@@ -29,7 +29,7 @@ station_json() {
       }
     }
     /^Station / { flush(); mac=$2; signal=-50; connected=0; rx=0; tx=0 }
-    /signal:/ { signal=$2 }
+    /^[[:space:]]*signal:/ { signal=$2 }
     /connected time:/ { connected=$3 }
     /rx bytes:/ { rx=$3 }
     /tx bytes:/ { tx=$3 }
