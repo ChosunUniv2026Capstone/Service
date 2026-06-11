@@ -1,0 +1,30 @@
+serviceVersion: v0.5.1
+releasedAt: 2026-06-11T01:32:12Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.8.0
+    tag: v0.8.0
+    digest: sha256:485d43a56e7c90d5dd4e4ef03a4a69c5233b9dd3a0bec8c03259f89bdc0b757e
+    release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.8.0
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.7.0
+    tag: v0.7.0
+    digest: sha256:a160114a8795fb270c01fc890925d00727480b0b6700e5a45ca8da23ca0456a5
+    release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/smart-class-front-v0.7.0
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.3.3
+    tag: v0.3.3
+    digest: sha256:ac878c31881bebcc61d8280f0fe805ade0634e8044a58911369891a9a5fab0df
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.3.3
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.7.0
+    tag: v0.7.0
+    digest: sha256:d316548a0434c263d74de653f5500b72a65adb4f44e2772168bdc1d4137ebd7e
+    resetRequired: false
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.7.0
+notes:
+  summary: Demo release pinning the all-student CSE999 24/7 QA course seed without requiring a DB reset.
