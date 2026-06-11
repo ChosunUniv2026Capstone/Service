@@ -1,0 +1,30 @@
+serviceVersion: v0.5.5
+releasedAt: 2026-06-11T03:29:01Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.8.2
+    tag: v0.8.2
+    digest: sha256:3e34127585a91552ee87a230bc78cb30bdd84e0f2e6dfdac70b6cac65d48f3a3
+    release: https://github.com/ChosunUniv2026Capstone/Backend/releases/tag/v0.8.2
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.7.4
+    tag: v0.7.4
+    digest: sha256:bc30fc2bdb99f1291e6e05c70d92a73f80591d1b489eea15bf7e31ad55c0da87
+    release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/smart-class-front-v0.7.4
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.3.3
+    tag: v0.3.3
+    digest: sha256:ac878c31881bebcc61d8280f0fe805ade0634e8044a58911369891a9a5fab0df
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/releases/tag/v0.3.3
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.7.1
+    tag: v0.7.1
+    digest: sha256:061e14e8d0bd35225f02f438b8d4382434833b6694628e64fbaab7522fc256c9
+    resetRequired: false
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.7.1
+notes:
+  summary: Demo release pinning faster auth bootstrap fallback, reduced attendance matrix polling, and Backend WEB_CONCURRENCY=4 without requiring a DB reset.
