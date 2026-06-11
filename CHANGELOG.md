@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.5](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.4...v0.5.5) (2026-06-11)
+
+
+### Bug Fixes
+
+* **service:** pin auth and worker fixes ([4364d54](https://github.com/ChosunUniv2026Capstone/Service/commit/4364d5407291006f13d4650e8fe4a026652da8a8))
+
 ## [0.5.4](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.3...v0.5.4) (2026-06-11)
 
 
