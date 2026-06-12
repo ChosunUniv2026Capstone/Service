@@ -1,0 +1,30 @@
+serviceVersion: v0.5.7
+releasedAt: 2026-06-12T17:51:12Z
+components:
+  backend:
+    image: ghcr.io/chosununiv2026capstone/backend
+    version: v0.8.3
+    tag: sha-d058901
+    digest: sha256:0d7a39c4cd8b198c81a9efbb73138dde353c38dbbf8982fdf6a43d6322e1fd20
+    release: https://github.com/ChosunUniv2026Capstone/Backend/actions/runs/27430391141
+  front:
+    image: ghcr.io/chosununiv2026capstone/front
+    version: v0.8.0
+    tag: v0.8.0
+    digest: sha256:d86aa17915b57ae9381ce1800bc179840400100c6d2137a2ec66a813f565a865
+    release: https://github.com/ChosunUniv2026Capstone/Front/releases/tag/smart-class-front-v0.8.0
+  presenceService:
+    image: ghcr.io/chosununiv2026capstone/presence-service
+    version: v0.3.4
+    tag: sha-ce3aa1a
+    digest: sha256:65142a3808238979d766cb14297c22f237d7ec94a4f7df260ad689da63d14353
+    release: https://github.com/ChosunUniv2026Capstone/PresenceService/actions/runs/27430391674
+  db:
+    image: ghcr.io/chosununiv2026capstone/db
+    version: v0.7.1
+    tag: v0.7.1
+    digest: sha256:061e14e8d0bd35225f02f438b8d4382434833b6694628e64fbaab7522fc256c9
+    resetRequired: false
+    release: https://github.com/ChosunUniv2026Capstone/DB/releases/tag/v0.7.1
+notes:
+  summary: Demo release pinning Front 0.8.0 admin classroom AP tree UI without requiring a DB reset.
