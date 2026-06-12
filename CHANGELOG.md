@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.6](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.5...v0.5.6) (2026-06-13)
+
+
+### Features
+
+* **service:** pin demo presence eligibility release
+
 ## [0.5.5](https://github.com/ChosunUniv2026Capstone/Service/compare/v0.5.4...v0.5.5) (2026-06-11)
 
 

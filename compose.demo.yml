@@ -16,6 +16,7 @@ services:
     environment:
       ACCESS_COOKIE_SECURE: ${ACCESS_COOKIE_SECURE:-true}
       ACCESS_COOKIE_SAMESITE: ${ACCESS_COOKIE_SAMESITE:-lax}
+      PRESENCE_ELIGIBILITY_SOURCE: ${PRESENCE_ELIGIBILITY_SOURCE:-demo}
 
   front:
     restart: unless-stopped
