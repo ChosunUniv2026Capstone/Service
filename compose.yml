@@ -62,6 +62,7 @@ services:
       SERVICE_PORT: ${SERVICE_PORT:-8000}
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://smartclass:smartclass@postgres:5432/smartclass}
       PRESENCE_SERVICE_URL: ${PRESENCE_SERVICE_URL:-http://presence-service:8001}
+      PRESENCE_ELIGIBILITY_SOURCE: ${PRESENCE_ELIGIBILITY_SOURCE:-auto}
       CORS_ORIGINS: ${CORS_ORIGINS:-*}
       JWT_SECRET: ${JWT_SECRET:-smart-class-dev-jwt-secret}
       PRESENCE_INTERNAL_TOKEN: ${PRESENCE_INTERNAL_TOKEN:-smart-class-dev-internal-token}
